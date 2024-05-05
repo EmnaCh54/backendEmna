@@ -54,15 +54,11 @@ exports.updateEnseignant = async (req, res) => {
         prenom: req.body.prenom,
         mot_de_passe: req.body.mot_de_passe,
         email: req.body.email,
-        photo_profil: req.body.photo_profil,
-        telephone: req.body.telephone,
         adresse: req.body.adresse,
-        sexe: req.body.sexe,
         role: req.body.role,
-        domaine: req.body.domaine,
         specialite: req.body.specialisation,
-        matiere_principal: req.body.matiere_principal,
         date_naissance: req.body.date_naissance,
+        niveau_education: req.body.niveau_education
       },
       { new: true }
     );
@@ -88,8 +84,8 @@ exports.updateEnseignant = async (req, res) => {
         role: req.body.role,
         date_naissance: req.body.date_naissance,
         statut: req.body.statut,
-        specialite:req.body.specialite,
-        niveau_educatif:req.body.niveau_educatif,
+        specialite: req.body.specialite,
+        niveau_educatif: req.body.niveau_educatif,
       },
       { new: true }
     );

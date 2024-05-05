@@ -21,6 +21,7 @@
     "mongoo": "^0.3.5",
     "mongoose": "^8.3.2",
     "mongose": "^0.0.2-security",
+    "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0",
     "openai": "^4.40.0",
     "scripts": "^0.1.0"
