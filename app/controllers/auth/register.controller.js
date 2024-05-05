@@ -77,16 +77,21 @@ exports.register = async (req, res) => {
         await newEtudiant.save();
         break;
     }
-
+    if (newUser) {
+      res.status(201).json({
+        message: "Inscription réussie",
+        nom: newUser.nom,
+        prenom: newUser.prenom,
+        role: newUser.role,
+      });
+    } else {
+      res.status(401).json({
+        message: "something wen wrong ",
+      });
+    }
     // Retourner les informations de l'utilisateur nouvellement enregistré
-    res.status(201).json({
-      message: "Inscription réussie",
-      nom: newUser.nom,
-      prenom: newUser.prenom,
-      role: newUser.role,
-    });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Erreur interne du serveur" });
+    res.status(500).json({ message: "Inscription non réussie" });
   }
 };

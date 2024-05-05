@@ -27,3 +27,15 @@ exports.findOneDevoir = async(req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+// Télécharger un devoir par ID
+exports.downloadDevoirById = async(req, res) => {
+    try {
+        const devoir = await Devoir.findById(req.params.devoirId);
+        if (!devoir) {
+            return res.status(404).send({ message: `Devoir not found with ID ${req.params.devoirId}` });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+};

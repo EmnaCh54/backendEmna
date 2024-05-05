@@ -1,4 +1,3 @@
-// admin.controller.js
 const Admin = require("../../models/admin.model");
 const Utilisateur = require("../../models/utilisateur.model");
 
