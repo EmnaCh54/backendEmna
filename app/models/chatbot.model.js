@@ -1,11 +1,9 @@
-// models/generativeModel.js
 const fs = require("fs");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-// Classe représentant le modèle de l'API Generative AI
 class GenerativeModel {
   constructor(apiKey) {
-    this.genAI = new GoogleGenerativeAI(AIzaSyCrdB_ufr_SaBu_fapwT - apdTzwEkEFd1k);
+    this.genAI = new GoogleGenerativeAI(apiKey);
   }
 
   async generateContent(prompt, imagePaths) {
@@ -16,7 +14,7 @@ class GenerativeModel {
 
     const result = await model.generateContent([prompt, ...imageParts]);
     const response = await result.response;
-    const text = response.text();
+    const text = await response.text();
     return text;
   }
 

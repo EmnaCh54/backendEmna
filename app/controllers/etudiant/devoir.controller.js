@@ -2,7 +2,7 @@ const ContenuEducatif = require("../../models/contenueducatif.model");
 const Devoir = require("../../models/devoir.model");
 
 // Trouver tous les devoirs avec les détails du contenu éducatif associé
-exports.findAll = async(req, res) => {
+exports.findAllDevoirs = async(req, res) => {
     try {
         const devoirs = await Devoir.find().populate("contenu_id");
         res.status(200).json(devoirs);
@@ -22,18 +22,6 @@ exports.findOneDevoir = async(req, res) => {
         }
 
         res.json(devoir);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: error.message });
-    }
-};
-// Télécharger un devoir par ID
-exports.downloadDevoirById = async(req, res) => {
-    try {
-        const devoir = await Devoir.findById(req.params.devoirId);
-        if (!devoir) {
-            return res.status(404).send({ message: `Devoir not found with ID ${req.params.devoirId}` });
-        }
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });

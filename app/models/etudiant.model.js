@@ -12,10 +12,11 @@ const etudiantSchema = new mongoose.Schema(
       enum: ["actif", "inactif"],
       default: "actif",
     },
-
-    utilisateur: {
+    
+    utilisateur_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Utilisateur",
+      required: true,
     },
   },
   { timestamps: true }

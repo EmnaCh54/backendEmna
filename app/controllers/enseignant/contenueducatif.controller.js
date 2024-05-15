@@ -4,6 +4,7 @@ const Exercice = require("../../models/exercice.model");
 const Tests = require("../../models/test.model");
 const moment = require("moment");
 const Devoir = require("../../models/devoir.model");
+const Correction = require("../../models/correction.model");
 // Créer et enregistrer un nouveau contenu éducatif
 exports.create = async (req, res) => {
   try {
@@ -64,6 +65,12 @@ exports.create = async (req, res) => {
           contenu_id: newContenuEducatif._id,
         });
         break;
+        break;
+      case "Correction":
+        newAssociatedItem = new Correction({
+          correction_id: newContenuEducatif._id,
+          contenu_id: newContenuEducatif._id,
+        });
       default:
         // Si le type de contenu n'est pas pris en charge, renvoyer une erreur
         return res

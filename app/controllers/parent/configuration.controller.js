@@ -39,37 +39,71 @@ exports.findParentById = (req, res) => {
 };
 
 //modifier compte parent
-exports.updateParent = (req, res) => {
-  // Find Parent and update it with the request body
-  Parent.findByIdAndUpdate(
-    req.params.parentId,
-    {
-      relation: req.body.relation,
-      pression: req.body.pression,
-      utilisateur_id: req.body.utilisateur_id,
-    },
-    { new: true }
-  )
-    .then((parent) => {
-      if (!parent) {
-        return res.status(404).send({
-          message: "Parent non trouvé avec l'ID " + req.params.parentId,
-        });
-      }
-      res.send(parent);
-    })
-    .catch((err) => {
-      if (err.kind === "ObjectId") {
-        return res.status(404).send({
-          message: "Parent non trouvé avec l'ID " + req.params.parentId,
-        });
-      }
-      return res.status(500).send({
-        message:
-          "Erreur lors de la mise à jour du Parent avec l'ID " +
-          req.params.parentId,
+exports.updateParent = async (req, res) => {
+  const parentId = req.params.parentId;
+
+  try {
+    console.log("Parent ID:", parentId);
+    console.log("Requête du corps:", req.body);
+
+    // Mettre à jour parent avec le corps de la requête
+    const parent = await Parent.findByIdAndUpdate(
+      parentId,
+      {
+        utilisateur_id: req.body.utilisateur_id,
+        nom: req.body.nom,
+        prenom: req.body.prenom,
+        mot_de_passe: req.body.mot_de_passe,
+        email: req.body.email,
+        adresse: req.body.adresse,
+        role: req.body.role,
+        etudiant_id: req.body.etudiant_id,
+        date_naissance: req.body.date_naissance,
+      },
+      { new: true }
+    );
+
+    console.log("Parent mis à jour:", parent);
+
+    if (!parent) {
+      return res.status(404).send({
+        message: `Parent non trouvé avec l'ID ${parentId}`,
       });
+    }
+
+    // Mettre à jour l'utilisateur
+    const utilisateurId = parent.utilisateur_id;
+    const utilisateur = await Utilisateur.findByIdAndUpdate(
+      utilisateurId,
+      {
+        nom: req.body.nom,
+        prenom: req.body.prenom,
+        mot_de_passe: req.body.mot_de_passe,
+        email: req.body.email,
+        adresse: req.body.adresse,
+        role: req.body.role,
+        date_naissance: req.body.date_naissance,
+      },
+      { new: true }
+    );
+
+    console.log("Utilisateur mis à jour:", utilisateur);
+
+    // Renvoyer la réponse
+    res.send({ parent, utilisateur });
+  } catch (err) {
+    console.error(err);
+
+    if (err.kind === "ObjectId") {
+      return res.status(404).send({
+        message: `Parent non trouvé avec l'ID ${parentId}`,
+      });
+    }
+
+    return res.status(500).send({
+      message: `Erreur lors de la mise à jour de Parent avec l'ID ${parentId}`,
     });
+  }
 };
 
 exports.deleteParent = (req, res) => {

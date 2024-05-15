@@ -14,6 +14,15 @@ const correctionSchema = new mongoose.Schema({
         ref: "Enseignant",
         required: true,
     },
+    niveau_scolaire: {
+        type: String,
+        required: true,
+      },
+      trimestre: {
+        type: String,
+        enum: ["s1", "s2", "s3"],
+        required: true,
+      },
 }, { timestamps: true });
 
 const Correction = mongoose.model("Correction", correctionSchema);

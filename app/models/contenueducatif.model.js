@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 
+const { Schema } = mongoose;
+
 // Définition du schéma du contenu éducatif
-const contenuEducatifSchema = new mongoose.Schema({
+const contenuEducatifSchema = new Schema({
   type_contenus: {
     type: String,
     enum: ["Cours", "Tests", "Exercice", "Devoir"],
@@ -19,7 +21,6 @@ const contenuEducatifSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
   trimestre: {
     type: String,
     enum: ["s1", "s2", "s3"],
@@ -34,8 +35,9 @@ const contenuEducatifSchema = new mongoose.Schema({
     required: true,
   },
   reporteur: {
-    type: String,
+    type: Schema.Types.ObjectId,
     required: true,
+    ref: "Enseignant",
   },
   image: {
     type: String,
